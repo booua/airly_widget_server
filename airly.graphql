@@ -1,5 +1,5 @@
 type Query {
-  nearestMeasurement(lat: String!, lng: String!): Measurement
+  nearestMeasurement(lat: Float!, lng: Float!): Measurement
   installation(id: ID!): Installation
 }
 

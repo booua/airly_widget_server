@@ -11,7 +11,6 @@ const resolvers = {
       );
     },
     installation: (parent, args) => {
-      console.log("test");
       const { id } = args;
       return getAirlyData(`https://airapi.airly.eu/v2/installations/${id}`);
     },
@@ -32,11 +31,3 @@ async function getAirlyData(url = "") {
 }
 
 server.start(() => console.log("Server is running on localhost:4000"));
-
-
-// nearestMeasurement(geolocation: Geolocation): Measurement
-//installations nearby
-//all measurements for id
-//measurements by name for id
-
-//get location from electron
