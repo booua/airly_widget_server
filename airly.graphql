@@ -1,0 +1,56 @@
+type Query {
+  nearestMeasurement(lat: String!, lng: String!): Measurement
+  installation(id: ID!): Installation
+}
+
+type Installation {
+  id: ID!
+  location: Geolocation!
+  address: Address
+  isAirly: Boolean!
+}
+
+type Geolocation {
+  latitude: String!
+  longitude: String!
+}
+
+type Address {
+  country: String
+  city: String
+  street: String
+  number: String
+  displayAddress1: String
+  displayAddress2: String
+}
+type Measurement {
+  current: currentMeasurement
+}
+
+type currentMeasurement {
+  date: String
+  values: [airQValue]
+  indexes: [Indexes]
+  standards: [Standards]
+}
+
+type Standards {
+  name: String
+  pollutant: String
+  limit: Int
+  percent: Float
+}
+
+type Indexes {
+  name: String
+  value: Float
+  level: String
+  description: String
+  advice: String
+  color: String
+}
+
+type airQValue {
+  name: String!
+  value: Float!
+}
