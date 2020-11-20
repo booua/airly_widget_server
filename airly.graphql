@@ -1,6 +1,6 @@
 type Query {
   nearestMeasurement(lat: Float!, lng: Float!): Measurement
-  nearestInstallation(lat: Float!, lng: Float!): Installation
+  nearestInstallation(lat: Float!, lng: Float!): [Installation]
 }
 
 type Installation {
