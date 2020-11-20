@@ -10,9 +10,9 @@ const resolvers = {
         `https://airapi.airly.eu/v2/measurements/point?lat=${lat}&lng=${lng}&maxDistanceKM=5`
       );
     },
-    installation: (parent, args) => {
-      const { id } = args;
-      return getAirlyData(`https://airapi.airly.eu/v2/installations/${id}`);
+    nearestInstallation: (parent, args) => {
+      const { lat, lng } = args;
+      return getAirlyData(`https://airapi.airly.eu/v2/installations/nearest?lat=${lat}&lng=${lng}&maxDistanceKM=5`);
     },
   },
 };

@@ -1,13 +1,12 @@
 type Query {
   nearestMeasurement(lat: Float!, lng: Float!): Measurement
-  installation(id: ID!): Installation
+  nearestInstallation(lat: Float!, lng: Float!): Installation
 }
 
 type Installation {
   id: ID!
-  location: Geolocation!
+  location: Geolocation
   address: Address
-  isAirly: Boolean!
 }
 
 type Geolocation {
