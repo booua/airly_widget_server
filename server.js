@@ -1,4 +1,5 @@
 require("dotenv").config();
+var Mixpanel = require('mixpanel');
 const { GraphQLServer } = require("graphql-yoga");
 const fetch = require("node-fetch");
 
@@ -17,7 +18,16 @@ const resolvers = {
   },
 };
 
+// ANALYTICS_KEY
+
 const server = new GraphQLServer({ typeDefs: "./airly.graphql", resolvers });
+
+ let mixpanel = Mixpanel.init(
+  process.env.ANALYTICS_KEY,
+  {
+    host: "api-eu.mixpanel.com",
+  },
+);
 
 async function getAirlyData(url = "") {
   const response = await fetch(url, {
@@ -27,7 +37,11 @@ async function getAirlyData(url = "") {
       apikey: process.env.AIRLY_API_KEY,
     },
   });
+  mixpanel.track("airly request made", {"url": url, "response": response.json()});
   return response.json();
 }
 
-server.start(() => console.log("Server is running on localhost:4000"));
+server.start(() => {
+mixpanel.track("Server started");
+console.log('started on 4000')
+});
