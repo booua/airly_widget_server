@@ -1,7 +1,9 @@
 require("dotenv").config();
-var Mixpanel = require('mixpanel');
 const { GraphQLServer } = require("graphql-yoga");
 const fetch = require("node-fetch");
+const Mixpanel = require('mixpanel');
+
+let mixpanel = Mixpanel.init(process.env.ANALYTICS_KEY);
 
 const resolvers = {
   Query: {
@@ -22,12 +24,6 @@ const resolvers = {
 
 const server = new GraphQLServer({ typeDefs: "./airly.graphql", resolvers });
 
- let mixpanel = Mixpanel.init(
-  process.env.ANALYTICS_KEY,
-  {
-    host: "api-eu.mixpanel.com",
-  },
-);
 
 async function getAirlyData(url = "") {
   const response = await fetch(url, {
