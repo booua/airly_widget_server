@@ -9,12 +9,14 @@ const resolvers = {
   Query: {
     nearestMeasurement: (parent, args) => {
       const { lat, lng } = args;
+      mixpanel.track("airly request nearestMeasurement", {"lat": lat, "lng": lng});
       return getAirlyData(
         `https://airapi.airly.eu/v2/measurements/point?lat=${lat}&lng=${lng}&maxDistanceKM=5`
       );
     },
     nearestInstallation: (parent, args) => {
       const { lat, lng } = args;
+      mixpanel.track("airly request nearestInstallation", {"lat": lat, "lng": lng});
       return getAirlyData(`https://airapi.airly.eu/v2/installations/nearest?lat=${lat}&lng=${lng}&maxDistanceKM=5`);
     },
   },
@@ -33,7 +35,6 @@ async function getAirlyData(url = "") {
       apikey: process.env.AIRLY_API_KEY,
     },
   });
-  mixpanel.track("airly request made", {"url": url, "response": response.json()});
   return response.json();
 }
 
